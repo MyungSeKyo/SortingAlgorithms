@@ -1,17 +1,71 @@
 
-public class Test {
+public class SortingAlgorithms {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		int[] array = {1,2,3,4,5,6,7,8,9};
-		insertionSort(array);
+		mergeSort(array);
 		for(int i = 0;i < array.length;i++) {
 			System.out.println(array[i]);
 		}
 	}
+	
+	public static void mergeSort(int[] array) {
+		mergeSortRoutine(array, 0, array.length - 1);
+	}
+	
+	private static void mergeSortRoutine(int[] array,int head, int tail) {
+		int mid = (head + tail) / 2;
+		int i = head;
+		int j = mid;
+		int[] tempArray;
+		int tempIndex = 0;
+		
+		
+		if(head != mid) {
+			mergeSortRoutine(array, head, mid - 1);	
+		}
+		
+		if(mid != tail) {
+			mergeSortRoutine(array, mid, tail);
+		}
+		
+		tempArray = new int[array.length];
+		
+		i = 0;
+		j = mid;
+		
+		while(i < mid && j <= tail) {
+			if(array[i] > array[j]) {
+				tempArray[tempIndex] = array[j];
+				tempIndex++;
+				j++;
+			} else {
+				tempArray[tempIndex] = array[i];
+				tempIndex++;
+				i++;
+			}
+		}
+		
+		while(i < mid) {
+			tempArray[tempIndex] = array[i];
+			tempIndex++;
+			i++;
+		}	
+		
+		while(j <= tail) {
+			tempArray[tempIndex] = array[j];
+			tempIndex++;
+			j++;
+		}
+		
+		array = tempArray;
+	}
+	
 	public static void quickSort(int[] array) {
 		quickSortRoutine(array, 0, array.length - 1);
 	}
+	
 	private static void quickSortRoutine(int[] array, int head, int tail) {
 		int pivot = array[(head + tail) / 2];
 		int left = head;
@@ -38,6 +92,7 @@ public class Test {
 		if(right < tail && left < right)
 			quickSortRoutine(array, right, tail);
 	}
+	
 	public static void selectionSort(int[] array) {
 		int maxIndex = 0;
 		for(int i = 0;i < array.length; i++) {
@@ -50,6 +105,7 @@ public class Test {
 			swap(array, i, maxIndex);
 		}
 	}
+	
 	public static void insertionSort(int[] array) {
 		for(int i = 0;i < array.length;i++) {
 			for(int j = i;j > 0;j--) {
@@ -61,6 +117,7 @@ public class Test {
 			}
 		}
 	}
+	
 	public static void swap(int[] array,int index1, int index2) {
 		int temp = array[index1];
 		array[index1] = array[index2];
