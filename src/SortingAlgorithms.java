@@ -1,14 +1,5 @@
 
 public class SortingAlgorithms {
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		int[] array = {1,2,3,4,5,6,7,8,9};
-		mergeSort(array);
-		for(int i = 0;i < array.length;i++) {
-			System.out.println(array[i]);
-		}
-	}
 	
 	public static void mergeSort(int[] array) {
 		mergeSortRoutine(array, 0, array.length - 1);
@@ -21,33 +12,31 @@ public class SortingAlgorithms {
 		int[] tempArray;
 		int tempIndex = 0;
 		
-		
-		if(head != mid) {
-			mergeSortRoutine(array, head, mid - 1);	
+		if(head < mid) {
+			mergeSortRoutine(array, head, mid);	
 		}
 		
-		if(mid != tail) {
-			mergeSortRoutine(array, mid, tail);
+		if(mid  + 1 < tail) {
+			mergeSortRoutine(array, mid + 1, tail);
 		}
 		
-		tempArray = new int[array.length];
+		tempArray = new int[tail - head + 1];
+		i = head;
+		j = mid + 1;
 		
-		i = 0;
-		j = mid;
-		
-		while(i < mid && j <= tail) {
-			if(array[i] > array[j]) {
-				tempArray[tempIndex] = array[j];
-				tempIndex++;
-				j++;
-			} else {
+		while(i <= mid && j <= tail) {
+			if(array[i] < array[j]) {
 				tempArray[tempIndex] = array[i];
 				tempIndex++;
 				i++;
+			} else {
+				tempArray[tempIndex] = array[j];
+				tempIndex++;
+				j++;
 			}
 		}
 		
-		while(i < mid) {
+		while(i <= mid) {
 			tempArray[tempIndex] = array[i];
 			tempIndex++;
 			i++;
@@ -59,7 +48,9 @@ public class SortingAlgorithms {
 			j++;
 		}
 		
-		array = tempArray;
+		for(int k = 0;k < tempArray.length;k++) {
+			array[head + k] = tempArray[k];
+		}
 	}
 	
 	public static void quickSort(int[] array) {
@@ -118,7 +109,7 @@ public class SortingAlgorithms {
 		}
 	}
 	
-	public static void swap(int[] array,int index1, int index2) {
+	private static void swap(int[] array,int index1, int index2) {
 		int temp = array[index1];
 		array[index1] = array[index2];
 		array[index2] = temp;
